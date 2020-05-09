@@ -86,7 +86,6 @@ Time: 142.555 ms
 -------------------------------------------------
 ```
 
-# :copyright: [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+# [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-# :heart: Donation
-[![Buy Me Coffee](https://github.com/julianodba/Postgres-dba-scripts/blob/master/coffe.png)](https://www.paypal.me/julianotech)
+# [![Buy Me Coffee](https://github.com/julianodba/Postgres-dba-scripts/blob/master/coffe.png)](https://www.paypal.me/julianotech)
