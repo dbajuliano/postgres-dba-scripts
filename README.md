@@ -1,4 +1,4 @@
-# postgres-dba-scripts
+# :elephant: postgres-dba-scripts
 Daily scripts used on multi cluster environments with many hosts
 
 Developed using CentOS 7 and Postgres 11
