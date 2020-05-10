@@ -14,8 +14,6 @@ File sample
 ---------------------
 Connection credentials are stored on [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) file and should be auto-read
 
-If this script is executed more than once a day will cause conflict due to multiple archive files on pg_archivecleanup
-
 Cron syntax:
 ```
 mm hh dd month weekday /path/to/script.sh hostname port username
@@ -32,11 +30,12 @@ The example below exports the `.pgpass` credentials used on `/etc/crontab`:
 
 Output:
 ```
-[2020-05-10 - 07:53:48] : /opt/bin/pg_backup.sh : Performing base backup
-[2020-05-10 - 07:59:42] : /opt/bin/pg_backup.sh : Compressing backup
-[2020-05-10 - 08:09:08] : /opt/bin/pg_backup.sh : Cleaning backups older then 2 days and logs optional
-[2020-05-10 - 08:09:08] : /opt/bin/pg_backup.sh : Deleting archives
-[2020-05-10 - 08:09:09] : /opt/bin/pg_backup.sh : Finish backup script
+[2020-05-10 - 13:12:02] : /opt/bin/pg_backup.sh : Performing base backup on new dir /backup/postgres
+[2020-05-10 - 13:24:33] : /opt/bin/pg_backup.sh : Created compressed backup directory /backup/2020.05.10-13.12.02
+[2020-05-10 - 13:24:33] : /opt/bin/pg_backup.sh : Compressing /backup/postgres into /backup/2020.05.10-13.12.02
+[2020-05-10 - 13:33:49] : /opt/bin/pg_backup.sh : Cleaning compressed backup directories older than 4 days
+[2020-05-10 - 13:33:50] : /opt/bin/pg_backup.sh : Deleting archives
+[2020-05-10 - 13:33:50] : /opt/bin/pg_backup.sh : Finished
 ```
 
 :mag_right: find_user_multiple_hosts.sh
