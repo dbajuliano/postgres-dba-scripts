@@ -29,7 +29,7 @@ function backupProcess()
 
         echo "[$(date "+%Y-%m-%d - %H:%M:%S")] : $0 : Compressing backup"
         mkdir $bak_dir_tar
-        tar -cf - -C $bak_path pg --remove-files pg | pigz -4 -p 4 > $bak_dir_tar/base.tar.gz # bug here
+        tar -cf - -C $bak_path pg --remove-files | pigz -4 -p 4 > $bak_dir_tar/base.tar.gz # bug here
         # - (dash) = Use the outputed listed from "pg" dir
         # -C = Creation of a tarball without the full path. Note: there is a space between "$bak_path" and "pg"; tar will replace full path with just "pg"
         # --remove-files = remove the uncompressed pg folder after compression
