@@ -14,7 +14,7 @@ File sample
 ---------------------
 Connection credentials are stored on [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) file and should be auto-read
 
-Cron Syntax:
+Cron syntax:
 ```
 mm hh dd month weekday /path/to/script.sh hostname port username
 ```
@@ -26,6 +26,15 @@ The example below runs every midnight cron user replication on 02 different host
 The example below exports the `.pgpass` credentials used on `/etc/crontab`:
 ```
 00 00 * * * postgres export PGPASSFILE=/home/replication/.pgpass | /opt/bin/pg_backup.sh localhost 5432 replication
+```
+
+Output:
+```
+[2020-05-10 - 07:53:48] : /opt/bin/pg_backup.sh : Performing base backup
+[2020-05-10 - 07:59:42] : /opt/bin/pg_backup.sh : Compressing backup
+[2020-05-10 - 08:09:08] : /opt/bin/pg_backup.sh : Cleaning backups older then 2 days and logs optional
+[2020-05-10 - 08:09:08] : /opt/bin/pg_backup.sh : Deleting archives
+[2020-05-10 - 08:09:09] : /opt/bin/pg_backup.sh : Finish backup script
 ```
 
 :mag_right: find_user_multiple_hosts.sh
@@ -63,6 +72,7 @@ A Cron script with customized port in case of running multiple pg instances
 00 2 * * * /opt/bin/refresh_materialized_view.sh demo.local 5434 postgres
 ```
 
+Output:
 ```
 [2020-05-07 - 02:00:00] : /opt/bin/refresh_materialized_view.sh : Started
 
