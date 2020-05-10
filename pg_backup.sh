@@ -46,6 +46,7 @@ function backupProcess()
 
         # Set archive file name to be cleaned
         filename=$(grep -l "Backup $(date +"%Y-%m-%d")" $pg_archive/*.backup | cut -c14-"$COLUMNS")
+        # If this script is executed more than once a day will cause conflict due to multiple archive files on pg_archivecleanup
 
         # Clean the archived files which are already applied in the new backup
         echo "[$(date "+%Y-%m-%d - %H:%M:%S")] : $0 : Deleting archives"
