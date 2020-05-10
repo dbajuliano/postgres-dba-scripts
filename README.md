@@ -69,8 +69,8 @@ user
 
 A Cron script with customized port in case of running multiple pg instances
 ```
-00 2 * * * /opt/bin/refresh_materialized_view.sh localhost 5432 postgres
-00 2 * * * /opt/bin/refresh_materialized_view.sh demo.local 5434 postgres
+00 2 * * * /opt/bin/refresh_materialized_view.sh localhost 5432
+00 2 * * * /opt/bin/refresh_materialized_view.sh demo.local 5434
 ```
 
 Output:
