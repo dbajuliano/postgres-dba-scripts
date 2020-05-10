@@ -14,6 +14,8 @@ File sample
 ---------------------
 Connection credentials are stored on [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) file and should be auto-read
 
+If this script is executed more than once a day will cause conflict due to multiple archive files on pg_archivecleanup
+
 Cron syntax:
 ```
 mm hh dd month weekday /path/to/script.sh hostname port username
