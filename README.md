@@ -37,6 +37,14 @@ Output:
 [2020-05-10 - 13:33:50] : /opt/bin/pg_backup.sh : Deleting archives
 [2020-05-10 - 13:33:50] : /opt/bin/pg_backup.sh : Finished
 ```
+```
+ls -l /backup/
+2020.05.08-00.00.01
+2020.05.09-00.00.01
+2020.05.10-00.00.01
+2020.05.11-00.00.01
+backup_logs/
+```
 
 :mag_right: find_user_multiple_hosts.sh
 ---------------------
