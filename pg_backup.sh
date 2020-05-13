@@ -15,15 +15,15 @@ db_port=$3
 pg_dir=/usr/pgsql-11/bin
 pg_archive=/postgres/pg_archive
 
-timestamp=$(date "+%Y.%m.%d-%H.%M.%S") # static predefined to match all dir names and pg_archivecleanup label
+# Date/Time labels (yyyy.mm.dd-hh.mm) - can now run the script in minute interval by cron if necessary - good for tests
+timestamp=$(date "+%Y.%m.%d-%H.%M") # static predefined to match all dir names and pg_archivecleanup label
+uniq_label="Backup $timestamp" # used by pg_archivecleanup
 
 # Backup directories
 bak_path=/backup/
 bak_fresh=$bak_path/postgres # temp directory
 bak_dir_tar=$bak_path/$timestamp # deleted according to the rotation interval of days
 bak_logs=$bak_path/backup_logs/$timestamp.log
-
-uniq_label="Backup $timestamp" # used by pg_archivecleanup
 
 # FUNCTIONS
 function backup()
