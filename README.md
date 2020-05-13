@@ -31,18 +31,18 @@ The example below exports the `.pgpass` credentials used on `/etc/crontab`:
 Output:
 ```
 [2020-05-10 - 13:12:02] : /opt/bin/pg_backup.sh : Performing base backup on new dir /backup/postgres
-[2020-05-10 - 13:24:33] : /opt/bin/pg_backup.sh : Created compressed backup directory /backup/2020.05.10-13.12.02
-[2020-05-10 - 13:24:33] : /opt/bin/pg_backup.sh : Compressing /backup/postgres into /backup/2020.05.10-13.12.02
+[2020-05-10 - 13:24:33] : /opt/bin/pg_backup.sh : Created compressed backup directory /backup/2020.05.10-13.12
+[2020-05-10 - 13:24:33] : /opt/bin/pg_backup.sh : Compressing /backup/postgres into /backup/2020.05.10-13.12
 [2020-05-10 - 13:33:49] : /opt/bin/pg_backup.sh : Cleaning compressed backup directories older than 4 days
 [2020-05-10 - 13:33:50] : /opt/bin/pg_backup.sh : Deleting archives
 [2020-05-10 - 13:33:50] : /opt/bin/pg_backup.sh : Finished
 ```
 ```
 ls -l /backup/
-2020.05.08-00.00.01
-2020.05.09-00.00.01
-2020.05.10-00.00.01
-2020.05.11-00.00.01
+2020.05.08-00.00
+2020.05.09-00.00
+2020.05.10-00.00
+2020.05.11-00.00
 backup_logs/
 ```
 
