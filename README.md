@@ -23,7 +23,7 @@ The example below runs every midnight cron user replication on 02 different host
 00 00 * * * /opt/bin/pg_backup.sh primary.production.localhost 5432 replication
 00 00 * * * /opt/bin/pg_backup.sh single.test.localhost 5433 replication
 ```
-The example below exports the `.pgpass` credentials used on `/etc/crontab`:
+Or as an alternative, we can use the `/etc/crontab` like the example below exporting the `.pgpass` credentials:
 ```
 00 00 * * * postgres export PGPASSFILE=/home/replication/.pgpass | /opt/bin/pg_backup.sh localhost 5432 replication
 ```
