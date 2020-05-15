@@ -61,7 +61,7 @@ function compress()
     # Before starting the new pg instance make sure the port and data directory location is configured properly on
     # postgresql.conf to avoid conflicts with any existent pg instance already running
 
-    # How to start the new extracted pg instance
+    # How to start the new extracted pg instance:
     # pg_ctl -D /backup/postgres/ -o "-p 5433" -l /backup/postgres.pg_ctl.log start
 }
 
