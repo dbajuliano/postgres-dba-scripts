@@ -55,8 +55,13 @@ function compress()
     # -4 = compression level (0 to 9), 6 is the default
     # -p 4 = process n (4 thread processors)
 
-    # How to manually extract in a custom target dir
-    # unpigz -p 8 < /backup/2020.05.10-13.12.02/postgres.tar.gz | tar -xvC /backup/ #it will create the subdir "postgres"
+    # How to manually extract in a custom target dir a:
+    # time unpigz -p 8 < /backup/2020.05.10-13.12.02/postgres.tar.gz | tar -xC /backup/ # it will create the subdir "postgres"
+    # -v for verbose mode
+    # Before starting the new pg instance make sure the port and data directory location is configured properly on
+    # postgresql.conf to avoid conflicts with any existent pg instance already running
+    # How to start the new extracted pg instance
+    # pg_ctl -D /backup/postgres/ -o "-p 5433" -l /backup/postgres.pg_ctl.log start
 }
 
 function clean()
