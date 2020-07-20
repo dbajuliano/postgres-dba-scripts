@@ -5,13 +5,14 @@ Developed using CentOS 7 and Postgres 11
 
 I would appreciate any collaboration and improvement
 
-:closed_lock_with_key:.pgpass
----------------------
-File sample 
+<br>
 
+# :closed_lock_with_key: [.pgpass](.pgpass) file sample
+[.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) official documentation 
 
-:floppy_disk: pg_backup.sh
----------------------
+<br>
+
+# :floppy_disk: [pg_backup.sh](pg_backup.sh)
 Connection credentials are stored on [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) file and should be auto-read
 
 Cron syntax:
@@ -46,8 +47,9 @@ ls -l /backup/
 backup_logs/
 ```
 
-:mag_right: find_user_multiple_hosts.sh
----------------------
+<br>
+
+# :mag_right: [find_user_multiple_hosts.sh](find_user_multiple_hosts.sh)
 The connection list with each host detail are stored on [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) file. All you need is to provide a username to find during the execution time. I.e.: `/opt/bin/find_user_multiple_hosts.sh juliano`
 
 Output:
@@ -72,8 +74,9 @@ user
 ------------------------------
 ```
 
-:clipboard:refresh_materialized_view.sh
----------------------
+<br>
+
+# :clipboard: [refresh_materialized_view.sh](refresh_materialized_view.sh)
 
 A Cron script with customized port in case of running multiple pg instances
 ```
@@ -104,6 +107,24 @@ Time: 142.555 ms
 
 -------------------------------------------------
 ```
+
+<br>
+
+# :watch: [idle_in_transaction.sql](idle_in_transaction.sql)
+
+Just put the psql straightly on the cron job to run every 2 minutes or the interval you want
+```
+*/2 * * * * psql -h localhost -U postgres -d postgres -p5432 -Upostgres -dpostgres --no-psqlrc -q -t -A -c "SELECT TO_CHAR(NOW(), 'DD-MM-YYYY HH:MI:SS'),pid,STATE,usename,client_addr,application_name,query FROM pg_stat_activity WHERE pid <> pg_backend_pid() AND STATE IN ( 'idle in transaction' ,'idle in transaction (aborted)', 'disabled' ) AND state_change < current_timestamp - '2 minutes'::INTERVAL" >> /var/log/pg_idle_tx_conn.log
+```
+* You can change the output symbol from ">>" to ">" if you want to reset the log file for each entry instead of increment the file otherwise would be recommended develop a log rotate plan, just in case
+* A good strategy is to configure your alert system tool to read the log file on every change and send a notification
+
+Output:
+```
+20-07-2020 09:52:01|14779|idle in transaction|juliano|192.168.0.1|psql|SELECT 'Juliano detection test';
+```
+
+<br>
 
 # [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
