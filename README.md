@@ -8,12 +8,11 @@ I would appreciate any collaboration and improvement
 <br>
 
 # :closed_lock_with_key: [.pgpass](.pgpass) file sample
-[.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) official documentation 
+:heavy_exclamation_mark: Most of the scripts below requires the connection credentials stored on the file [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) and should be auto-read
 
 <br>
 
 # :floppy_disk: [pg_backup.sh](pg_backup.sh)
-Connection credentials are stored on [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) file and should be auto-read
 
 Cron syntax:
 ```
@@ -50,7 +49,7 @@ backup_logs/
 <br>
 
 # :mag_right: [find_user_multiple_hosts.sh](find_user_multiple_hosts.sh)
-The connection list with each host detail are stored on [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) file. All you need is to provide a username to find during the execution time. I.e.: `/opt/bin/find_user_multiple_hosts.sh juliano`
+All you need is to provide a username to find during the execution time. I.e.: `/opt/bin/find_user_multiple_hosts.sh juliano`
 
 Output:
 ```
