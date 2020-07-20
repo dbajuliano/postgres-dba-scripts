@@ -1,6 +1,4 @@
 # :elephant: postgres-dba-scripts
-Daily scripts used on multi cluster environments with many hosts
-
 Developed using CentOS 7 and Postgres 11
 
 I would appreciate any collaboration and improvement
@@ -8,7 +6,7 @@ I would appreciate any collaboration and improvement
 <br>
 
 # :closed_lock_with_key: [.pgpass](.pgpass) file sample
-:heavy_exclamation_mark: Most of the scripts below requires the connection credentials stored on the file [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html) and should be auto-read
+:heavy_exclamation_mark: Most of the scripts below requires the connection credentials stored on the file [.pgpass](https://www.postgresql.org/docs/11/libpq-pgpass.html)
 
 <br>
 
@@ -49,7 +47,7 @@ backup_logs/
 <br>
 
 # :mag_right: [find_user_multiple_hosts.sh](find_user_multiple_hosts.sh)
-All you need is to provide a username to find during the execution time. I.e.: `/opt/bin/find_user_multiple_hosts.sh juliano`
+All you need is to provide a username as parameter to find. I.e.: `/opt/bin/find_user_multiple_hosts.sh juliano`
 
 Output:
 ```
@@ -111,12 +109,13 @@ Time: 142.555 ms
 
 # :watch: [idle_in_transaction.sql](idle_in_transaction.sql)
 
-Just put the psql straightly on the cron job to run every 2 minutes or the interval you want
+Just put the psql straightly on the cron job to find queries "idle in transaction" (running every 2 minutes below)
 ```
 */2 * * * * psql -h localhost -U postgres -d postgres -p5432 -Upostgres -dpostgres --no-psqlrc -q -t -A -c "SELECT TO_CHAR(NOW(), 'DD-MM-YYYY HH:MI:SS'),pid,STATE,usename,client_addr,application_name,query FROM pg_stat_activity WHERE pid <> pg_backend_pid() AND STATE IN ( 'idle in transaction' ,'idle in transaction (aborted)', 'disabled' ) AND state_change < current_timestamp - '2 minutes'::INTERVAL" >> /var/log/pg_idle_tx_conn.log
 ```
 * You can change the output symbol from ">>" to ">" if you want to reset the log file for each entry instead of increment the file otherwise would be recommended develop a log rotate plan, just in case
 * A good strategy is to configure your alert system tool to read the log file on every change and send a notification
+* Don't forget to create the log file with the correct permissions
 
 Output:
 ```
