@@ -111,7 +111,7 @@ Time: 142.555 ms
 
 Just put the psql straightly on the cron job to find queries "idle in transaction" (running every 2 minutes below)
 ```
-*/2 * * * * psql -h localhost -U postgres -d postgres -p5432 -Upostgres -dpostgres --no-psqlrc -q -t -A -c "SELECT TO_CHAR(NOW(), 'DD-MM-YYYY HH:MI:SS'),pid,STATE,usename,client_addr,application_name,query FROM pg_stat_activity WHERE pid <> pg_backend_pid() AND STATE IN ( 'idle in transaction' ,'idle in transaction (aborted)', 'disabled' ) AND state_change < current_timestamp - '2 minutes'::INTERVAL" >> /var/log/pg_idle_tx_conn.log
+*/2 * * * * psql -h localhost -U postgres -d postgres -p 5432 --no-psqlrc -q -t -A -c "SELECT TO_CHAR(NOW(), 'DD-MM-YYYY HH:MI:SS'),pid,STATE,usename,client_addr,application_name,query FROM pg_stat_activity WHERE pid <> pg_backend_pid() AND STATE IN ( 'idle in transaction' ,'idle in transaction (aborted)', 'disabled' ) AND state_change < current_timestamp - '2 minutes'::INTERVAL" >> /var/log/pg_idle_tx_conn.log
 ```
 * You can change the output symbol from ">>" to ">" if you want to reset the log file for each entry instead of increment the file otherwise would be recommended develop a log rotate plan, just in case
 * A good strategy is to configure your alert system tool to read the log file on every change and send a notification
