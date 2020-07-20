@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# This script needs to be executed in a machine that can access all your desired DB hosts
+# This script needs to be executed in a machine that can access all your DB hosts
 # Generally is a DBA machine or a HUB server with connection guaranteed on firewall and/or VPN 
 # This script uses the file .pgpass as a map of all hosts and pass the conn parameters accordingly    
 
@@ -11,9 +11,10 @@
 # Author www.github.com/julianodba on 07/05/2020
 
 pg_dir=/usr/pgsql-11/bin  # Optional: useful to change between different psql versions
+
 username=$1
 
-# Simple argument check 
+# Simple bash input argument check 
 if [[ -z $username ]]
 then
     echo "Invalid argument."
@@ -31,10 +32,10 @@ fi
 # $desc="$(grep '^\#.*$' ~/.pgpass)" # optional to show the hosts description, not necessary if connect using clear hostnames instead of ip
 awk -F ':' '/^[^#]/ { print $1,$2,$4 }' ~/.pgpass | while read ip port dbauser; do
 echo "Host: $ip Port: $port"
-PGCONNECT_TIMEOUT=3 $pg_dir/psql -c "SELECT usename as User FROM pg_user WHERE usename iLIKE '%${username}%'" -h $ip -p $port -U $dbauser -d postgres -A -X; 2>&1
+PGCONNECT_TIMEOUT=3 $pg_dir/psql -c "SELECT usename as User FROM pg_user WHERE usename iLIKE '%${username}%'" -h $ip -p $port -U $dbauser -d postgres -A --no-psqlrc; 2>&1
 echo -e "------------------------------\n"
 Done
 
-# Replace the psql command to "DROP ROLE IF EXISTS ${username}" to transform this script in an auto-delete-user
-# -X mean --no-psqlrc
-# iLike is useful in this case to find username variants such as admin_juliano, juliano_ro, etc..
+# You can replace the psql command to "DROP ROLE IF EXISTS ${username}" to transform this script in an auto-delete-user
+# -A mean unaligned table output mode
+# iLike is useful in this case to find username variants for a username for example on "juliano": adminjuliano, juliano_ro, su-juliano, etc..
