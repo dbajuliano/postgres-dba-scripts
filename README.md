@@ -134,6 +134,12 @@ Once the script is running you can using you prefred cli or gui on localhost.
 
 2. To stop it list the opened ports ```ps -ef | grep kubectl``` and then just kill the connection you want ```kill -9 pid_here``` or all connections ```pkill -9 kubectl```
 
+<br>
+
+# ☸️ [k8s_sql_connect.sh](/scripts/k8s_sql_connect.sh)
+Script to quick automate and direct connect to an AWS RDS instance using K8S pods
+Run ```./k8s_sql_connect.sh --help``` to see how it works
+
 # [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # [![Buy Me Coffee](coffe.png)](https://www.paypal.me/julianotech)
