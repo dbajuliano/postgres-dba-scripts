@@ -125,11 +125,11 @@ Output:
 # ⏩ [port-forward_k8s.sh](scripts/port-forward_k8s.sh)
 This script maps all database instances and ports using k8s ```port-forward``` from each remote environment to your local machine (```localhost``` or ```127.0.0.1```). It can be used also to access AWS RDS Aurora Postgres and MySQL instances.
 
-If you don’t want to use a bash script you can use [kubefwd](https://github.com/txn2/kubefwd) instead.
+If you don’t want to use this bash script you can use [kubefwd](https://github.com/txn2/kubefwd) instead.
 
-1. Edit the script with your instances already configured to use ```port-forward``` on k8s and run the script ```./port-forward_k8s.sh```
+Before start list the service names and ports running on kubernetes using the command: ```kubectl --context=context-name-here -n dba get services```
 
-Bonus: To list the service names and ports run ```kubectl --context=context-name-here -n dba get services```
+1. Edit the script with your instances addresses, they must be already configured to use ```port-forward``` on k8s as a requisite, then run the script ```./port-forward_k8s.sh```
 
 Once the script is running you can using you prefred cli or gui on localhost.
 
@@ -139,7 +139,20 @@ Once the script is running you can using you prefred cli or gui on localhost.
 
 # ☸️ [k8s_sql_connect.sh](/scripts/k8s_sql_connect.sh)
 Script to quick automate and direct connect to an AWS RDS instance using K8S pods
-Run ```./k8s_sql_connect.sh --help``` to see how it works
+Run ```./k8s_sql_connect.sh -h``` or ```--help``` to see how it works:
+
+```
+Usage:
+     ./psql_k8s.sh -c [context]  -i [instance]
+
+E.g. ./psql_k8s.sh -c staging -i pg-staging01
+
+     -c, --context    -->    -i, --instance
+     1. staging       -->    pg-staging01 | pg-staging02 | mysql-staging01
+     2. production    -->    pg-production01 | pg-production02 | mysql-production01
+ 
+     -h, --help        This message
+```
 
 # [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
