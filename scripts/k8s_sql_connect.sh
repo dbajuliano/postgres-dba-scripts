@@ -53,7 +53,7 @@ fi
 kubens dba
   
 # staging
-elif [ "$context" == "optional_prefix-staging" ] && [[ "$instance" =~ ^(pg-staging01|mysql-staging01)$ ]]; then
+if [ "$context" == "optional_prefix-staging" ] && [[ "$instance" =~ ^(pg-staging01|mysql-staging01)$ ]]; then
     kubectl config use-context $context
     pod=$(kubectl get pod -o name | grep my-pod-) # I use "my-pod-" because all my pods start with this word
     if [ "$instance" == "pg-staging01" ] ; then
