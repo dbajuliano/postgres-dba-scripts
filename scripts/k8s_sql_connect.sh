@@ -7,17 +7,15 @@ set -eo pipefail
  
 function usage() {
     echo ""
-    echo "Usage:"
-    echo "     ./psql_k8s.sh -i [instance] -c [context]"
-    echo "Or   ./psql_k8s.sh -c [context] -i [instance]"
+    echo "Usage:"
+    echo "     ./psql_k8s.sh -c [context]  -i [instance]"
+    echo ""
+    echo "E.g. ./psql_k8s.sh -c staging -i pg-staging01"
+
     echo ""
-    echo "E.g. ./psql_k8s.sh -i pg-staging01 -c staging"
-    echo "Or   ./psql_k8s.sh -c staging -i pg-staging01"
-    echo ""
-    echo "     -c, --context     EKS K8S context: staging | production"
-    echo ""
-    echo "     -i, --instance    1. staging --> pg-staging01 | mysql-staging01"
-    echo "                       2. production --> pg-production01 | pg-production02 | mysql-production01" 
+    echo "     -c, --context    -->    -i, --instance"
+    echo "     1. staging       -->    pg-staging01 | pg-staging02 | mysql-staging01"
+    echo "     2. production    -->    pg-production01 | pg-production02 | mysql-production01" 
     echo ""
     echo "     -h, --help        This message"
     echo ""
@@ -57,9 +55,14 @@ kubens dba
 # staging
 elif [ "$context" == "optional_prefix-staging" ] && [[ "$instance" =~ ^(pg-staging01|mysql-staging01)$ ]]; then
     kubectl config use-context $context
-    pod=$(kubectl get pod -o name | grep my-pod-) # I use "my-pod-" because all my pods start with the word "dba-pod-"
+    pod=$(kubectl get pod -o name | grep my-pod-) # I use "my-pod-" because all my pods start with this word
     if [ "$instance" == "pg-staging01" ] ; then
         kubectl exec -it $pod -- env PGPASSWORD="**********" psql -h $instance.qwerty.us-east-1.rds.amazonaws.com -U pg_user -d db_name
+        # PGPASSWORD is not recommended, please use .pgpass or .pg_service.conf
+        exit 1
+    fi
+    if [ "$instance" == "pg-staging02" ] ; then
+        kubectl exec -it $pod -- env PGPASSWORD="**********" psql -h $instance.zxcvbn.us-east-1.rds.amazonaws.com -U pg_user -d db_name
         # PGPASSWORD is not recommended, please use .pgpass or .pg_service.conf
         exit 1
     fi
