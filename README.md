@@ -1,5 +1,5 @@
-# :elephant: postgres-dba-scripts
-Welcome to my public scripts and notes repository
+# :elephant: [postgres-dba-scripts](README.md)
+Welcome to my public notes and scripts about Postgres
 
 <br>
 
